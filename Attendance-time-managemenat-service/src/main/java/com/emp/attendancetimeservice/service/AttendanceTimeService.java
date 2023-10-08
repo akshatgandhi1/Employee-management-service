@@ -2,12 +2,12 @@ package com.emp.attendancetimeservice.service;
 
 import java.util.List;
 
-import com.emp.attendancetimeservice.dto.AttendanceTimeRequestDto;
+import com.emp.attendancetimeservice.dto.AttendanceTimeResponceDto;
 
 public interface AttendanceTimeService {
 
-	AttendanceTimeRequestDto addClockInTime(String empId);
-	AttendanceTimeRequestDto addClockOutTime(String empId);
+	AttendanceTimeResponceDto addClockInTime(String empId);
+	AttendanceTimeResponceDto addClockOutTime(String empId);
 	
 //	List<E>
 	

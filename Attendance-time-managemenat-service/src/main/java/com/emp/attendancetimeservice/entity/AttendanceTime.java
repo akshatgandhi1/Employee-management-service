@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collation = "Attendence")
+@Document
 public class AttendanceTime {
 	
 	@Id
