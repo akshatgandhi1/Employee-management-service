@@ -1,4 +1,4 @@
-package com.emp.payrollservice;
+package com.emp.performancereviewservice;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class PayrollServiceApplication {
+public class PerformanceReviewServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PayrollServiceApplication.class, args);
+		SpringApplication.run(PerformanceReviewServiceApplication.class, args);
 	}
 	
 	@Bean
