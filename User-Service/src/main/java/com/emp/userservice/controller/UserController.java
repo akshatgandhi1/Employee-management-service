@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.emp.userservice.dto.UserDto;
+import com.emp.userservice.dto.UserReqDto;
 import com.emp.userservice.entity.User;
 import com.emp.userservice.service.UserService;
 
@@ -28,7 +29,7 @@ public class UserController {
 	
 	@PostMapping("/create")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public UserDto createnewUser(@RequestBody UserDto userdto) {
+	public UserDto createnewUser(@RequestBody UserReqDto userdto) {
 		return userService.createUser(userdto);
 	}
 	
@@ -44,7 +45,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public UserDto updateUser(@PathVariable("id") String id,UserDto userDto) {
+	public UserDto updateUser(@PathVariable("id") String id,@RequestBody UserDto userDto) {
 		userDto.setId(id);
 		return userService.updateUser(userDto);
 	}
@@ -52,5 +53,11 @@ public class UserController {
 	@DeleteMapping("/delete/{id}")
 	public void deleteuser(@PathVariable("id") String id) {
 		userService.deleteUser(id);
+	}
+	
+	@PutMapping("/updatebyhr/{id}")
+	public UserDto updateUserByHR(@PathVariable("id") String id,@RequestBody UserDto userDto) {
+		userDto.setId(id);
+		return userService.updateuserByHR(userDto);
 	}
 }
