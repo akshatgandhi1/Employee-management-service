@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.emp.userservice.dto.UserDto;
+import com.emp.userservice.dto.UserReqDto;
 import com.emp.userservice.entity.User;
 import com.emp.userservice.exception.UserAlreadyPresentException;
 import com.emp.userservice.repository.UserRepository;
@@ -23,8 +24,8 @@ public class UserServiceImpl implements UserService{
 	private ModelMapper mapper;
 	
 	@Override
-	public UserDto createUser(UserDto userdto) {
-		User user=mapper.map(userdto, User.class);
+	public UserDto createUser(UserReqDto reqDto) {
+		User user=mapper.map(reqDto, User.class);
 		Optional<User> user1=userRepository.findByUserEmail(user.getUserEmail());
 		if (user1.isPresent()) {
 			throw new UserAlreadyPresentException("Email already present");
@@ -56,9 +57,7 @@ public class UserServiceImpl implements UserService{
 		user.setUserEmail(userDto.getUserEmail());
 		user.setPassword(userDto.getPassword());
 		user.setUserNumber(userDto.getUserNumber());
-		user.setUserRole(userDto.getUserRole());
-		user.setDesignitation(userDto.getDesignitation());
-
+		
 		User updateUser= userRepository.save(user);
 		return mapper.map(updateUser, UserDto.class);
 	}
@@ -66,5 +65,24 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void deleteUser(String id) {
 		userRepository.deleteById(id);
+	}
+
+	@Override
+	public UserDto updateuserByHR(UserDto userDto) {
+		
+		int randomPin   =(int) (Math.random()*9000)+1000; 
+        String otp  = String.valueOf(randomPin); 
+        
+		User user=userRepository.findById(userDto.getId()).get();
+		user.setEmpId(userDto.getEmpId());
+		user.setUserName(userDto.getUserName());
+		user.setUserEmail(userDto.getUserEmail());
+		user.setPassword(otp);
+		user.setUserNumber(userDto.getUserNumber());
+		user.setDesignitation(userDto.getDesignitation());
+		user.setUserRole(userDto.getUserRole());
+		
+		User updateUser= userRepository.save(user);
+		return mapper.map(updateUser, UserDto.class);
 	}
 }
