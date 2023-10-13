@@ -85,4 +85,17 @@ public class UserServiceImpl implements UserService{
 		User updateUser= userRepository.save(user);
 		return mapper.map(updateUser, UserDto.class);
 	}
+
+	@Override
+	public UserDto getUserbyEmpId(Integer empId) {
+		Optional<User> user=userRepository.findByEmpId(empId);
+		UserDto dto=mapper.map(user, UserDto.class);
+		return dto;		
+	}
+
+	@Override
+	public boolean existEmp(Integer empId) {
+		return userRepository.existsByEmpId(empId);
+	}
+	
 }

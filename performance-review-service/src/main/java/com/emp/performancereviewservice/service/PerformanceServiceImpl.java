@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import com.emp.performancereviewservice.dto.PerformanceReqDto;
 import com.emp.performancereviewservice.dto.PerformanceResDto;
 import com.emp.performancereviewservice.entity.Performance;
+import com.emp.performancereviewservice.exception.EmployeeIsNotpresentException;
 import com.emp.performancereviewservice.exception.PerfomanceException;
+import com.emp.performancereviewservice.externalservice.UserService;
 import com.emp.performancereviewservice.repository.PerformanceRepository;
 
 @Service
@@ -24,19 +26,26 @@ public class PerformanceServiceImpl implements PerformanceService{
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Autowired
+	private UserService service;
+	
 	@Override
 	public PerformanceResDto addPerformance(PerformanceReqDto performanceReqDto) {
-		
-		
-		Performance performance=modelMapper.map(performanceReqDto, Performance.class);
-		List<Performance> findByMonth=performanceRepository.findByMonthAndEmpId(performance.getMonth(), performance.getEmpId());
-		if (findByMonth.isEmpty()) {
-			Performance savePerformance=performanceRepository.save(performance);
-			return modelMapper.map(savePerformance, PerformanceResDto.class);
-			
+		boolean existEmpId = service.ExistEmpId(performanceReqDto.getEmpId());
+		if (existEmpId) {
+			Performance performance=modelMapper.map(performanceReqDto, Performance.class);
+			List<Performance> findByMonth=performanceRepository.findByMonthAndEmpId(performance.getMonth(), performance.getEmpId());
+			if (findByMonth.isEmpty()) {
+				Performance savePerformance=performanceRepository.save(performance);
+				return modelMapper.map(savePerformance, PerformanceResDto.class);
+				
+			}else {
+				throw new PerfomanceException("already persent");
+			}
 		}else {
-			throw new PerfomanceException("already persent");
+			throw new EmployeeIsNotpresentException("employee not present");
 		}
+		
 	}
 
 	@Override

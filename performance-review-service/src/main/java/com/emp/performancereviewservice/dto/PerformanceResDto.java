@@ -15,7 +15,7 @@ import lombok.Setter;
 public class PerformanceResDto {
 
 	private String perId;
-	private String empId;
+	private Integer empId;
 	private String reviewerName;
 	private Integer rating;
 	private String feedback;

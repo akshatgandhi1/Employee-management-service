@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 
-	@Id
+	
 	private String id;
 	private Integer empId;
 	private String userName;
