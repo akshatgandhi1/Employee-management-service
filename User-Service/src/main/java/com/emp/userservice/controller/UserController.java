@@ -44,6 +44,18 @@ public class UserController {
 		return userService.getUserbyId(id);
 	}
 	
+	@GetMapping("/getbyempid/{empId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public UserDto getByEmpId(@PathVariable("empId") Integer empId){
+		return userService.getUserbyEmpId(empId);
+	}
+	
+	@GetMapping("/existemp/{empId}")
+	@ResponseStatus(code = HttpStatus.OK)
+	public boolean ExistEmpId(@PathVariable("empId") Integer empId){
+		return userService.existEmp(empId);
+	}
+	
 	@PutMapping("/update/{id}")
 	public UserDto updateUser(@PathVariable("id") String id,@RequestBody UserDto userDto) {
 		userDto.setId(id);

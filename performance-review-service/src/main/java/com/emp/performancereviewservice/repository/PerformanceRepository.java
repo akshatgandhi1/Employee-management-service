@@ -12,6 +12,6 @@ public interface PerformanceRepository extends MongoRepository<Performance, Stri
 
 	List<Performance> findByEmpId(String empId);
 
-	List<Performance> findByMonthAndEmpId(Month month, String empId);
+	List<Performance> findByMonthAndEmpId(Month month, Integer empId);
 
 }

@@ -13,5 +13,7 @@ public interface UserService {
 	UserDto updateUser(UserDto userDto);
 	void deleteUser(String id);
 	UserDto updateuserByHR(UserDto dto);
+	UserDto getUserbyEmpId(Integer empId);
 	
+	boolean existEmp(Integer empId);
 }

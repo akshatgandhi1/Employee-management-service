@@ -20,7 +20,7 @@ public class Performance {
 
 	@Id
 	private String perId;
-	private String empId;
+	private Integer empId;
 	private String reviewerName;
 	private Integer rating;
 	private String feedback;
